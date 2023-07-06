@@ -19,7 +19,7 @@
 
 <div align=center class="aspect-ratio">
     <iframe
-        src="https://player.bilibili.com/player.html?bvid={{ index .Params 0 }}&&page=1&as_wide=1&high_quality=1&danmaku=0&autoplay=0"
+        src="https://player.bilibili.com/player.html?bvid={{ index .Params 0 }}&page={{ if .Get 1 }}{{.Get 1}}{{ else }}1{{end}}&t={{ if .Get 2 }}{{.Get 2}}{{ else }}0{{end}}&as_wide=1&high_quality=1&danmaku=0&autoplay=0"
         scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true">
     </iframe>
 </div>
