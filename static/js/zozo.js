@@ -28,7 +28,7 @@ $(document).ready((function (_this) {
 // nav-toggle
 $(document).ready((function (_this) {
   return function () {
-    let nav,icon
+    let nav, icon
     icon = $('#menu_icon')
     nav = $('#site_nav')
     icon.click(function () {
@@ -36,6 +36,14 @@ $(document).ready((function (_this) {
     })
   }
 })(this))
+
+// Fancybox
+$('.post_content').each(function (ele) {
+  $(this).find('img').each(function (img) {
+    console.log('img', img);
+    $(this).wrap(`<a class="fancybox" href="${this.src}" data-fancybox="gallery" data-caption="${this.title}"></a>`);
+  });
+});
 
 // FancyBox
 $('[data-fancybox="gallery"]').fancybox({
