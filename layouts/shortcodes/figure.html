@@ -44,7 +44,7 @@
        
       {{ end }}
     {{ end }}
-    <img src="{{ .Scratch.Get "preview" }}"
+    <img loading="lazy" src="{{ .Scratch.Get "preview" }}"
       {{- if or (.Get "alt") $caption }}
         alt="{{ with .Get "alt" }}{{ . }}{{ else }}{{ $caption | markdownify | plainify }}{{ end }}"
       {{- end -}}
