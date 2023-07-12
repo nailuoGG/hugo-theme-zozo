@@ -25,7 +25,7 @@ body {
   color: #333333;
   font-family: "lxgw wenkai", "Helvetica Neue", Arial, "Noto Sans", sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 16px;
+  font-size: 18px;
   width: 100%;
   background-color: #f7f7f7;
   margin: 0;
@@ -129,7 +129,7 @@ hr {
   display: block;
   white-space: nowrap;
   padding: 10px;
-  font-size: 0.9rem;
+  font-size: 18px;
 }
 
 .header {
