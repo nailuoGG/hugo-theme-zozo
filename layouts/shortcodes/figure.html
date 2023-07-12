@@ -1,0 +1,62 @@
+<!-- Web page content width -->
+{{ $maxWidth := 800 }}
+
+{{ $original := .Page.Resources.GetMatch (.Get "src") }}
+
+{{ .Scratch.Set "originalImage" (.Page.Resources.GetMatch (.Get "src")) }}
+
+{{ if $original }}
+    {{ if gt $original.Width $maxWidth }}
+        {{ .Scratch.Set "previewImage" ($original.Resize (print $maxWidth "x")) }}
+        {{ .Scratch.Set "preview" (.Scratch.Get "previewImage").RelPermalink }}
+    {{ end }}
+{{ end }}
+
+{{ if (.Scratch.Get "preview") }}
+    {{ .Scratch.Set "link" (.Scratch.Get "originalImage").RelPermalink }}
+{{ else }}
+    {{ .Scratch.Set "preview" (.Scratch.Get "originalImage").RelPermalink }}
+{{ end }}
+
+<div>original: {{$original}}</div>
+<div>Width: {{ (.Scratch.Get "previewImage").Width}}</div>
+
+<div>Width: {{ (.Scratch.Get "originalImage").Width}}</div>
+
+<!-- Replace caption  -->
+{{ $caption := replaceRE "Figure [0-9]+: " "" (.Get "caption") }}
+
+<figure{{ with .Get "class" }} class="{{ . }}"{{ end }}>
+    {{- if .Scratch.Get "preview" -}}
+    <a href="{{ .Scratch.Get "link" }}" {{ with .Get "target" }} target="{{ . }}"{{ end }} data-fancybox="gallery" data-caption="{{ $caption }}">
+    {{- end -}}
+    <img src="{{ .Scratch.Get "preview" }}"
+    {{- if or (.Get "alt") $caption }}
+         alt="{{ with .Get "alt" }}{{ . }}{{ else }}{{ $caption | markdownify | plainify }}{{ end }}"
+    {{- end -}}
+
+    {{- if (.Scratch.Get "previewImage") }}
+        {{- with .Scratch.Get "previewImage" }}
+         width="{{ .Width }}" height="{{ .Height }}"
+        {{ end -}}
+        {{else}}
+         {{- with .Scratch.Get "originalImage" }}
+         width="{{ .Width }}" height="{{ .Height }}"
+        {{ end -}}
+    {{- end -}}
+    />
+    {{- if .Scratch.Get "preview" }}</a>{{ end -}}
+    {{- if or $caption (.Get "attr") -}}
+
+    <figcaption>
+        {{- if or $caption (.Get "attr") -}}<p>
+            {{- $caption | markdownify -}}
+            {{- with .Get "attrlink" }}
+                <a href="{{ . }}">
+            {{- end -}}
+            {{- .Get "attr" | markdownify -}}
+            {{- if .Get "attrlink" }}</a>{{ end }}</p>
+        {{- end }}
+    </figcaption>
+    {{- end }}
+</figure>

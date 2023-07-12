@@ -38,12 +38,12 @@ $(document).ready((function (_this) {
 })(this))
 
 // Fancybox
-$('.post_content').each(function (ele) {
-  $(this).find('img').each(function (img) {
-    console.log('img', img);
-    $(this).wrap(`<a class="fancybox" href="${this.src}" data-fancybox="gallery" data-caption="${this.title}"></a>`);
-  });
-});
+// $('.post_content').each(function (ele) {
+//   $(this).find('img').each(function (img) {
+//     console.log('img', img);
+//     $(this).wrap(`<a class="fancybox" href="${this.src}" data-fancybox="gallery" data-caption="${this.title}"></a>`);
+//   });
+// });
 
 // FancyBox
 $('[data-fancybox="gallery"]').fancybox({
