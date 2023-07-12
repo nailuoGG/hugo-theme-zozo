@@ -5,11 +5,15 @@
 
 {{ .Scratch.Set "originalImage" (.Page.Resources.GetMatch (.Get "src")) }}
 
-{{ if $original }}
+{{ if $original}}
+    {{ if ne (path.Ext $original.RelPermalink) ".svg" }}
     {{ if gt $original.Width $maxWidth }}
-        {{ .Scratch.Set "previewImage" ($original.Resize (print $maxWidth "x")) }}
-        {{ .Scratch.Set "preview" (.Scratch.Get "previewImage").RelPermalink }}
+      {{ .Scratch.Set "previewImage" ($original.Resize (print $maxWidth "x")) }}
+      {{ .Scratch.Set "preview" (.Scratch.Get "previewImage").RelPermalink }}
     {{ end }}
+  {{ else }}
+    <!-- 处理矢量图像的代码 -->
+  {{ end }}
 {{ end }}
 
 {{ if (.Scratch.Get "preview") }}
@@ -18,18 +22,14 @@
     {{ .Scratch.Set "preview" (.Scratch.Get "originalImage").RelPermalink }}
 {{ end }}
 
-<div>original: {{$original}}</div>
-<div>Width: {{ (.Scratch.Get "previewImage").Width}}</div>
-
-<div>Width: {{ (.Scratch.Get "originalImage").Width}}</div>
-
 <!-- Replace caption  -->
 {{ $caption := replaceRE "Figure [0-9]+: " "" (.Get "caption") }}
 
 <figure{{ with .Get "class" }} class="{{ . }}"{{ end }}>
-    {{- if .Scratch.Get "preview" -}}
+    {{- if .Scratch.Get "previewImage" -}}
     <a href="{{ .Scratch.Get "link" }}" {{ with .Get "target" }} target="{{ . }}"{{ end }} data-fancybox="gallery" data-caption="{{ $caption }}">
     {{- end -}}
+    
     <img src="{{ .Scratch.Get "preview" }}"
     {{- if or (.Get "alt") $caption }}
          alt="{{ with .Get "alt" }}{{ . }}{{ else }}{{ $caption | markdownify | plainify }}{{ end }}"
@@ -37,15 +37,19 @@
 
     {{- if (.Scratch.Get "previewImage") }}
         {{- with .Scratch.Get "previewImage" }}
+        {{ if ne (path.Ext .RelPermalink) ".svg" }}
          width="{{ .Width }}" height="{{ .Height }}"
+        {{ end }}
         {{ end -}}
         {{else}}
          {{- with .Scratch.Get "originalImage" }}
+     {{ if ne (path.Ext .RelPermalink) ".svg" }}
          width="{{ .Width }}" height="{{ .Height }}"
-        {{ end -}}
+        {{ end }}
+    {{ end -}}
     {{- end -}}
     />
-    {{- if .Scratch.Get "preview" }}</a>{{ end -}}
+    {{- if .Scratch.Get "previewImage" }}</a>{{ end -}}
     {{- if or $caption (.Get "attr") -}}
 
     <figcaption>
