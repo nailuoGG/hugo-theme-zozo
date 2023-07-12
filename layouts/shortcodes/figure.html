@@ -8,7 +8,9 @@
 {{ if $original}}
     {{ if ne (path.Ext $original.RelPermalink) ".svg" }}
     {{ if gt $original.Width $maxWidth }}
+
       {{ .Scratch.Set "previewImage" ($original.Resize (print $maxWidth "x")) }}
+
       {{ .Scratch.Set "preview" (.Scratch.Get "previewImage").RelPermalink }}
     {{ end }}
   {{ else }}
@@ -29,6 +31,19 @@
     {{- if .Scratch.Get "previewImage" -}}
     <a href="{{ .Scratch.Get "link" }}" {{ with .Get "target" }} target="{{ . }}"{{ end }} data-fancybox="gallery" data-caption="{{ $caption }}">
     {{- end -}}
+<picture>
+
+{{ with .Page.Resources.GetMatch (.Get "src") }}
+       {{ if ne (path.Ext .RelPermalink) ".svg" }}
+
+           {{ with .Resize (printf "%dx%d webp" .Width .Height) }}
+            <source srcset="{{ .RelPermalink }}" type="image/webp" />
+            {{ end }}
+
+
+{{ end }}
+{{ end }}
+
 
     <img src="{{ .Scratch.Get "preview" }}"
     {{- if or (.Get "alt") $caption }}
@@ -43,12 +58,13 @@
         {{ end -}}
         {{else}}
          {{- with .Scratch.Get "originalImage" }}
-     {{ if ne (path.Ext .RelPermalink) ".svg" }}
+        {{ if ne (path.Ext .RelPermalink) ".svg" }}
          width="{{ .Width }}" height="{{ .Height }}"
         {{ end }}
     {{ end -}}
     {{- end -}}
     />
+    </picture>
     {{- if .Scratch.Get "previewImage" }}</a>{{ end -}}
     {{- if or $caption (.Get "attr") -}}
 
