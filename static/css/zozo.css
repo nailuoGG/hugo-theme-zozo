@@ -278,7 +278,7 @@ hr {
 
 .post .post_footer .meta .info {
   float: left;
-  font-size: 11px;
+  font-size: 14px;
 }
 
 .post .post_footer .meta .info .date {
@@ -377,7 +377,7 @@ hr {
 
 /*for archive*/
 .list_with_title {
-  font-size: 14px;
+  font-size: 16px;
   margin: 0;
   padding: 0;
 }
