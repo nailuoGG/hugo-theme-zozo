@@ -1,5 +1,5 @@
 <!-- Web page content width -->
-{{ $maxWidth := 800 }}
+{{ $maxWidth := 576 }}
 
 {{ $original := .Page.Resources.GetMatch (.Get "src") }}
 
@@ -29,7 +29,7 @@
     {{- if .Scratch.Get "previewImage" -}}
     <a href="{{ .Scratch.Get "link" }}" {{ with .Get "target" }} target="{{ . }}"{{ end }} data-fancybox="gallery" data-caption="{{ $caption }}">
     {{- end -}}
-    
+
     <img src="{{ .Scratch.Get "preview" }}"
     {{- if or (.Get "alt") $caption }}
          alt="{{ with .Get "alt" }}{{ . }}{{ else }}{{ $caption | markdownify | plainify }}{{ end }}"
