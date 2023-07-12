@@ -5,12 +5,10 @@
 
 {{ .Scratch.Set "originalImage" (.Page.Resources.GetMatch (.Get "src")) }}
 
-{{ if $original}}
-    {{ if ne (path.Ext $original.RelPermalink) ".svg" }}
+{{ if $original }}
+  {{ if ne (path.Ext $original.RelPermalink) ".svg" }}
     {{ if gt $original.Width $maxWidth }}
-
       {{ .Scratch.Set "previewImage" ($original.Resize (print $maxWidth "x")) }}
-
       {{ .Scratch.Set "preview" (.Scratch.Get "previewImage").RelPermalink }}
     {{ end }}
   {{ else }}
@@ -19,64 +17,64 @@
 {{ end }}
 
 {{ if (.Scratch.Get "preview") }}
-    {{ .Scratch.Set "link" (.Scratch.Get "originalImage").RelPermalink }}
+  {{ .Scratch.Set "link" (.Scratch.Get "originalImage").RelPermalink }}
 {{ else }}
-    {{ .Scratch.Set "preview" (.Scratch.Get "originalImage").RelPermalink }}
+  {{ .Scratch.Set "preview" (.Scratch.Get "originalImage").RelPermalink }}
 {{ end }}
 
-<!-- Replace caption  -->
+<!-- Replace caption -->
 {{ $caption := replaceRE "Figure [0-9]+: " "" (.Get "caption") }}
 
 <figure{{ with .Get "class" }} class="{{ . }}"{{ end }}>
-    {{- if .Scratch.Get "previewImage" -}}
+  {{- if .Scratch.Get "previewImage" -}}
     <a href="{{ .Scratch.Get "link" }}" {{ with .Get "target" }} target="{{ . }}"{{ end }} data-fancybox="gallery" data-caption="{{ $caption }}">
-    {{- end -}}
-<picture>
-
-{{ with .Page.Resources.GetMatch (.Get "src") }}
-       {{ if ne (path.Ext .RelPermalink) ".svg" }}
-
-           {{ with .Resize (printf "%dx%d webp" .Width .Height) }}
-            <source srcset="{{ .RelPermalink }}" type="image/webp" />
-            {{ end }}
-
-
-{{ end }}
-{{ end }}
-
-
+  {{- end -}}
+  <picture>
+    {{ with .Page.Resources.GetMatch (.Get "src") }}
+      {{ if ne (path.Ext .RelPermalink) ".svg" }}
+      {{ if gt $original.Width $maxWidth }}
+       {{ with .Resize (printf  "1152x webp") }}
+          <source srcset="{{ .RelPermalink }}" type="image/webp" />
+        {{ end }}
+      {{else}}
+       {{ with .Resize (printf "%dx%d webp" .Width .Height) }}
+          <source srcset="{{ .RelPermalink }}" type="image/webp" />
+        {{ end }}
+      {{end}}
+       
+      {{ end }}
+    {{ end }}
     <img src="{{ .Scratch.Get "preview" }}"
-    {{- if or (.Get "alt") $caption }}
-         alt="{{ with .Get "alt" }}{{ . }}{{ else }}{{ $caption | markdownify | plainify }}{{ end }}"
-    {{- end -}}
-
-    {{- if (.Scratch.Get "previewImage") }}
+      {{- if or (.Get "alt") $caption }}
+        alt="{{ with .Get "alt" }}{{ . }}{{ else }}{{ $caption | markdownify | plainify }}{{ end }}"
+      {{- end -}}
+      {{- if (.Scratch.Get "previewImage") }}
         {{- with .Scratch.Get "previewImage" }}
-        {{ if ne (path.Ext .RelPermalink) ".svg" }}
-         width="{{ .Width }}" height="{{ .Height }}"
-        {{ end }}
+          {{ if ne (path.Ext .RelPermalink) ".svg" }}
+            width="{{ .Width }}" height="{{ .Height }}"
+          {{ end }}
         {{ end -}}
-        {{else}}
-         {{- with .Scratch.Get "originalImage" }}
-        {{ if ne (path.Ext .RelPermalink) ".svg" }}
-         width="{{ .Width }}" height="{{ .Height }}"
-        {{ end }}
-    {{ end -}}
-    {{- end -}}
+      {{- else }}
+        {{- with .Scratch.Get "originalImage" }}
+          {{ if ne (path.Ext .RelPermalink) ".svg" }}
+            width="{{ .Width }}" height="{{ .Height }}"
+          {{ end }}
+        {{ end -}}
+      {{- end -}}
     />
-    </picture>
-    {{- if .Scratch.Get "previewImage" }}</a>{{ end -}}
-    {{- if or $caption (.Get "attr") -}}
-
+  </picture>
+  {{- if .Scratch.Get "previewImage" }}</a>{{ end -}}
+  {{- if or $caption (.Get "attr") -}}
     <figcaption>
-        {{- if or $caption (.Get "attr") -}}<p>
-            {{- $caption | markdownify -}}
-            {{- with .Get "attrlink" }}
-                <a href="{{ . }}">
-            {{- end -}}
-            {{- .Get "attr" | markdownify -}}
-            {{- if .Get "attrlink" }}</a>{{ end }}</p>
-        {{- end }}
+      {{- if or $caption (.Get "attr") -}}
+        <p>
+          {{- $caption | markdownify -}}
+          {{- with .Get "attrlink" }}
+            <a href="{{ . }}">
+          {{- end -}}
+          {{- .Get "attr" | markdownify -}}
+          {{- if .Get "attrlink" }}</a>{{ end }}</p>
+      {{- end }}
     </figcaption>
-    {{- end }}
+  {{- end }}
 </figure>
