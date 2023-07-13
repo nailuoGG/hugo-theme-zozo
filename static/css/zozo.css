@@ -228,12 +228,12 @@ hr {
   line-height: 28px;
 }
 
-.post .post_title span {
+.post .post_title .field {
   color: #3c4858;
   font-size: 14px;
 }
 
-.post .post_title span.date {
+.post .post_title .field.date {
   font-size: 12px;
 }
 
@@ -289,6 +289,8 @@ hr {
 
 .post .post_footer .meta .field {
   margin-right: 10px;
+  float: left;
+  font-size: 14px;
 }
 
 .post .post_footer .meta .tags a {

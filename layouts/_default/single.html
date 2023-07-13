@@ -1,5 +1,7 @@
 {{ partial "head.html" . }}
 
+{{- $daysAgo := div (sub now.Unix .Lastmod.Unix) 86400 }}
+
 <body>
     <div class="main animate__animated animate__fadeInDown">
         {{ partial "nav.html" . }}
@@ -16,8 +18,12 @@
                     </div>
                     <div class="post_content markdown">{{ .Content }}</div>
                     <div class="post_footer">
-                        {{ with .Params.tags }}
                         <div class="meta">
+                            <span class="field">
+                                <i class="ri-calendar-2-line"></i>
+                                <span class="date">更新于：{{ .Lastmod.Format "2006.01.02"}}</span>
+                            </span>
+                            {{ with .Params.tags }}
                             <div class="info">
                                 <span class="field tags">
                                     <i class="ri-price-tag-3-line"></i>
@@ -26,8 +32,8 @@
                                     {{ end }}
                                 </span>
                             </div>
+                            {{ end }}
                         </div>
-                        {{ end }}
                     </div>
                 </div>
                 <!-- 评论系统 -->
