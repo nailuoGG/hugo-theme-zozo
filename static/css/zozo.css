@@ -595,7 +595,14 @@ hr {
   color: #8e8787;
   margin-top: 20px;
 }
-
+.markdown .content-figure {
+  text-align: center;
+  margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+}
 table {
   border-collapse: collapse;
   border-spacing: 0;

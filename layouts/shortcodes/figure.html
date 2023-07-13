@@ -25,7 +25,7 @@
 <!-- Replace caption -->
 {{ $caption := replaceRE "Figure [0-9]+: " "" (.Get "caption") }}
 
-<figure{{ with .Get "class" }} class="{{ . }}"{{ end }}>
+<figure class="content-figure {{ with .Get "class" }} {{ . }} {{ end }}">
   {{- if .Scratch.Get "previewImage" -}}
     <a href="{{ .Scratch.Get "link" }}" {{ with .Get "target" }} target="{{ . }}"{{ end }} data-fancybox="gallery" data-caption="{{ $caption }}">
   {{- end -}}
