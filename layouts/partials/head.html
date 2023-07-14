@@ -36,7 +36,9 @@
     {{ if .Site.Params.umamiWebSiteId }}
     <script async
      src="{{ .Site.Params.umamiWebSiteScriptURL }}"
-     data-website-id="{{ .Site.Params.umamiWebSiteId }}"></script>
+     data-website-id="{{ .Site.Params.umamiWebSiteId }}"
+     data-domains="{{ .Site.Params.umamiTrackDomains}}">
+     </script>
     {{ end }}
 
     

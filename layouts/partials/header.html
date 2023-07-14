@@ -12,12 +12,15 @@
             <div class="my_socials">
                 {{ range $key, $val := .Site.Social }}
                 {{ if ne $val "" }}
-                <a href="{{ $val }}" title="{{ $key }}" target="_blank"><i class="ri-{{ $key }}-fill"></i></a>
+                <a href="{{ $val }}" data-umami-event="Social Button {{ $key}}" title="{{ $key }}" target="_blank">
+                    <i class="ri-{{ $key }}-fill"></i>
+                </a>
                 {{ end }}
                 {{ end }}
                 {{ with .OutputFormats.Get "RSS" }}
-                <a href="{{ .RelPermalink }}" type="application/rss+xml" title="rss" target="_blank"><i
-                        class="ri-rss-fill"></i></a>
+                <a href="{{ .RelPermalink }}" type="application/rss+xml" data-umami-event="Social Button RSS" title="rss" target="_blank">
+                    <i class="ri-rss-fill"></i>
+                </a>
                 {{ end }}
             </div>
         </div>
