@@ -33,6 +33,14 @@
     <!-- baidu & google verification  -->
     {{ with .Site.Params.baiduVerification }}<meta name="baidu-site-verification" content="{{.}}" />{{ end }}
 
+    {{ if .Site.Params.umamiWebSiteId }}
+    <script async
+     src="{{ .Site.Params.umamiWebSiteScriptURL }}"
+     data-website-id="{{ .Site.Params.umamiWebSiteId }}"></script>
+    {{ end }}
+
+    
+
 	{{ with .OutputFormats.Get "rss" }}
 	{{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end }}
