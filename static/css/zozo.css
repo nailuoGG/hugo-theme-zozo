@@ -357,7 +357,9 @@ hr {
 .footer a:hover {
   color: #1f1f1f;
 }
+.footer .self_host_services {
 
+}
 .footer .powered_by {
   margin: 0;
   font-size: 11px;
