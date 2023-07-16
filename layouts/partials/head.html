@@ -33,6 +33,11 @@
     <!-- baidu & google verification  -->
     {{ with .Site.Params.baiduVerification }}<meta name="baidu-site-verification" content="{{.}}" />{{ end }}
 
+
+    <!-- Site Generator -->
+    <meta name="generator" content="Hugo {{ .Site.Hugo.Version }} with theme zozo" />
+
+
     {{ if .Site.Params.umamiWebSiteId }}
     <script async
      src="{{ .Site.Params.umamiWebSiteScriptURL }}"
@@ -43,15 +48,18 @@
 
     
 
-	{{ with .OutputFormats.Get "rss" }}
-	{{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
-    {{ end }}
-    
+    <!-- Permalink & RSSlink -->
+    <link rel="canonical" href="{{ .Permalink }}" />
+    {{- with .OutputFormats.Get "RSS" }}
+    <link href="{{ .Permalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
+    <link href="{{ .Permalink }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}" />
+    {{- end -}}
+        
     <link rel="shortcut icon" href="{{ "images/favicon.ico" | absURL }}" />
 
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 
-    {{ $options := dict "transpiler" "dartsass" "targetPath" "css/normalize.css" }}
+    {{ $options := dict "transpiler" "libsass" "targetPath" "css/normalize.css" }}
     {{ with resources.Get "sass/normalize.scss" | toCSS $options | minify | fingerprint }}
     <link rel="stylesheet" type="text/css" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
     {{ end }}
@@ -59,14 +67,14 @@
 
     <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" />
 
-    {{ $options := dict "transpiler" "dartsass" "targetPath" "css/style.css" }}
+    {{ $options := dict "transpiler" "libsass" "targetPath" "css/style.css" }}
     {{ with resources.Get "sass/zozo.scss" | toCSS $options | minify | fingerprint }}
     <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
     {{ end }}
 
 	<link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" />
 
-    {{ $options := dict "transpiler" "dartsass" "targetPath" "css/highlight.css" }}
+    {{ $options := dict "transpiler" "libsass" "targetPath" "css/highlight.css" }}
     {{ with resources.Get "sass/highlight.scss" | toCSS $options | minify | fingerprint }}
     <link rel="stylesheet"  type="text/css" media="screen"  href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
     {{ end }}
