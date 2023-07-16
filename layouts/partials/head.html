@@ -34,7 +34,7 @@
     {{ $length := len .Site.Params.keywords | add -1 }}
     <meta name="keywords" content="{{ range $index, $element := .Site.Params.keywords }}{{ $element | safeHTML }}{{ if ne $index $length }}, {{ end }}{{ end }}" />
     {{ end }}
-
+    <meta name="theme-color" content="#ffffff"/>
     <!-- baidu & google verification  -->
     {{ with .Site.Params.baiduVerification }}<meta name="baidu-site-verification" content="{{.}}" />{{ end }}
 
