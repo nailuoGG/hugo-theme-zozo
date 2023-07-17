@@ -492,16 +492,16 @@ hr {
 
 .markdown pre,
 .markdown code {
-  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
-    monospace;
+/*  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",*/
+/*    monospace;*/
   font-size: 0.9em;
-  background: #f8fafc;
-  border: none;
-  white-space: pre;
+/*  background: #f8fafc;*/
+/*  border: none;*/
+/*  white-space: pre;*/
 }
 
 .markdown pre {
-  padding: 16px;
+/*  padding: 16px;*/
   display: block;
   overflow: auto;
   white-space: pre;
@@ -509,16 +509,16 @@ hr {
 }
 
 .markdown code {
-  color: #666666;
-  padding: 4px 5px;
-  border-radius: 2px;
-  white-space: nowrap;
+/*  color: #666666;*/
+/*  padding: 4px 5px;*/
+/*  border-radius: 2px;*/
+/*  white-space: nowrap;*/
 }
 
 .markdown pre code {
-  padding: 0;
-  color: #555555;
-  white-space: pre;
+/*  padding: 0;*/
+/*  color: #555555;*/
+/*  white-space: pre;*/
 }
 
 .markdown blockquote p {
