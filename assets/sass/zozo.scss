@@ -358,7 +358,6 @@ hr {
   color: #1f1f1f;
 }
 .footer .self_host_services {
-
 }
 .footer .powered_by {
   margin: 0;
@@ -490,35 +489,39 @@ hr {
   font-size: 1.1em;
 }
 
+.highlight {
+  margin-bottom: 20px;
+}
+
 .markdown pre,
 .markdown code {
-/*  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",*/
-/*    monospace;*/
+  font-family: "Fira Code", Code Source Pro, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
   font-size: 0.9em;
-/*  background: #f8fafc;*/
-/*  border: none;*/
-/*  white-space: pre;*/
+  /*  background: #f8fafc;*/
+  /*  border: none;*/
+  white-space: pre;
 }
 
 .markdown pre {
-/*  padding: 16px;*/
-  display: block;
+  padding: 16px;
+  // display: block;
   overflow: auto;
   white-space: pre;
   word-wrap: break-word;
 }
 
 .markdown code {
-/*  color: #666666;*/
-/*  padding: 4px 5px;*/
-/*  border-radius: 2px;*/
-/*  white-space: nowrap;*/
+  /*  color: #666666;*/
+  /*  padding: 4px 5px;*/
+  /*  border-radius: 2px;*/
+  white-space: nowrap;
 }
 
 .markdown pre code {
-/*  padding: 0;*/
-/*  color: #555555;*/
-/*  white-space: pre;*/
+  /*  padding: 0;*/
+  /*  color: #555555;*/
+  white-space: pre;
 }
 
 .markdown blockquote p {
