@@ -17,3 +17,39 @@
 {{ partial "mathjax.html" . }}
 {{ end }}
 
+<!-- service worker -->
+    <script>
+    (function(){
+    	var gitHash = {{.GitInfo.AbbreviatedHash}};
+      var pageList = [
+            {{ range .Site.Pages }}
+            '{{ .Permalink }}',
+            {{ end }}];
+      var cssUrl = Array.from(document.querySelectorAll('link[href]')).filter(it=>/(\.css)$/.test(it.href)).map(it=>it.href);
+      var jsUrl = Array.from(document.querySelectorAll('script[src]')).map(it=>it.src);
+      // 判断浏览器是否支持 Service Worker
+      if ('serviceWorker' in navigator) {
+        // 在 load 事件触发后注册 Service Worker，确保 Service Worker 的注册不会影响首屏速度
+        window.addEventListener('load', function () {
+          // 注册 Service Worker
+          navigator.serviceWorker.register('/sw.js').then(function (registration) {
+            // 注册成功
+            console.log('ServiceWorker registration successful with scope: ', registration.scope)
+            if(!registration.active){
+            	return;
+            }
+            // 手动注入缓存页面
+            var urls = [].concat(pageList,cssUrl,jsUrl);
+            registration.active.postMessage({
+                        action : 'cache',
+                        urls : urls,
+                        gitHash: gitHash
+                    });
+          }).catch(function (err) {
+            // 注册失败 :(
+            console.warn('ServiceWorker registration failed: ', err)
+          })
+        })
+      }
+    })();
+    </script>
