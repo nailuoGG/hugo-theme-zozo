@@ -2,7 +2,7 @@
  * service worker 安装激活
  */
 
-let CACHE_VERSION = 1;
+let CACHE_VERSION = "1.0.1";
 
 const CACHE_VERSIONS = {
   assets: 'assets-v' + CACHE_VERSION,
