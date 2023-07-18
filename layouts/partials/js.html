@@ -45,6 +45,14 @@
             console.warn('ServiceWorker registration failed: ', err)
           })
         })
-      }
+      };
+	var refreshing = false
+	navigator.serviceWorker.addEventListener('controllerchange', () => {
+	  if (refreshing) {
+	    return
+	  }
+	  refreshing = true;
+	  window.location.reload();
+	});
     })();
     </script>
