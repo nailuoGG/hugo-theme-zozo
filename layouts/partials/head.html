@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html {{ with .Site.LanguageCode }}lang="{{ . }}" {{ end }}>
 <head>
-    <!-- Analytics -->
-{{- if (in (slice (getenv "HUGO_ENV") hugo.Environment) "production") | and .Site.GoogleAnalytics -}}
-  {{ template "_internal/google_analytics.html" . }}
-{{- end -}}
-
-
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -42,6 +36,10 @@
     <!-- Site Generator -->
     <meta name="generator" content="Hugo {{ .Site.Hugo.Version }} with theme zozo" />
 
+    <!-- Analytics -->
+    {{- if (in (slice (getenv "HUGO_ENV") hugo.Environment) "production") | and .Site.GoogleAnalytics -}}
+      {{ template "_internal/google_analytics.html" . }}
+    {{- end -}}
 
     {{ if .Site.Params.umamiWebSiteId }}
     <script async
