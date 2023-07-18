@@ -2,18 +2,15 @@
  * service worker 安装激活
  */
 
-let CACHE_VERSION = "1.0.1";
+let CACHE_VERSION = "1.0.0";
 
 
-const getCache = function() {
-    const CACHE_VERSIONS = {
+  var CACHE_VERSIONS = {
         assets: 'assets-v' + CACHE_VERSION,
         content: 'content-v' + CACHE_VERSION,
         offline: 'offline-v' + CACHE_VERSION,
         notFound: '404-v' + CACHE_VERSION,
     };
-    return CACHE_VERSIONS
-}
 
 let dataCacheName = 'new-data-v1'
 let cacheName = 'first-pwa-app-1'
@@ -42,17 +39,16 @@ self.addEventListener('install', function(e) {
 
 self.addEventListener('activate', function(e) {
     console.log('SW Activate')
-    // e.waitUntil(
-    //     caches.keys().then(function(keyList) {
-    //         return Promise.all(keyList.map(function(key) {
-    //             const CACHE_VERSIONS = getCache();
-    //             if (key !== CACHE_VERSIONS.assets && key !== CACHE_VERSION.content) {
-    //                 console.log('SW Removing old cache', key)
-    //                 return caches.delete(key)
-    //             }
-    //         }))
-    //     })
-    // )
+    e.waitUntil(
+        caches.keys().then(function(keyList) {
+            return Promise.all(keyList.map(function(key) {
+                if (key !== CACHE_VERSIONS.assets && key !== CACHE_VERSION.content) {
+                    console.log('SW Removing old cache', key)
+                    return caches.delete(key)
+                }
+            }))
+        })
+    )
     return self.clients.claim()
 })
 
@@ -62,7 +58,7 @@ self.addEventListener('fetch', function(e) {
     let dataUrl = '/see/'
     if (e.request.url.indexOf(dataUrl) > -1) {
         console.log('see不缓存');
-        const CACHE_VERSIONS = getCache();
+
         e.respondWith(
             caches.open(CACHE_VERSIONS.content).then(function(cache) {
                 return fetch(e.request).then(function(response) {
@@ -83,23 +79,9 @@ self.addEventListener('fetch', function(e) {
 })
 
 self.addEventListener('message', function(e) {
-    console.log('--------message from page', e)
     var urls = e.data.urls;
-    var gitHash = e.data.gitHash;
-    CACHE_VERSION = gitHash;
     if (e.data.action === 'cache') {
-        const CACHE_VERSIONS = getCache();
         caches.open(CACHE_VERSIONS.assets).then(function(cache) {
-            console.log('SW precaching urls')
-        caches.keys().then(function(keyList) {
-            return Promise.all(keyList.map(function(key) {
-                const CACHE_VERSIONS = getCache();
-                if (key !== CACHE_VERSIONS.assets && key !== CACHE_VERSION.content) {
-                    console.log('SW Removing old cache', key)
-                    return caches.delete(key)
-                }
-            }))
-        })
         cache.addAll(urls);
         return self.clients.claim();
         })

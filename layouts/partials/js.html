@@ -20,11 +20,7 @@
 <!-- service worker -->
     <script>
     (function(){
-    	var gitHash = {{.GitInfo.AbbreviatedHash}};
-      var pageList = [
-            {{ range .Site.Pages }}
-            '{{ .Permalink }}',
-            {{ end }}];
+      var pageList = [{{ range .Site.Pages }}'{{ .Permalink }}',{{ end }}];
       var cssUrl = Array.from(document.querySelectorAll('link[href]')).filter(it=>/(\.css)$/.test(it.href)).map(it=>it.href);
       var jsUrl = Array.from(document.querySelectorAll('script[src]')).map(it=>it.src);
       // 判断浏览器是否支持 Service Worker
@@ -42,8 +38,7 @@
             var urls = [].concat(pageList,cssUrl,jsUrl);
             registration.active.postMessage({
                         action : 'cache',
-                        urls : urls,
-                        gitHash: gitHash
+                        urls : urls
                     });
           }).catch(function (err) {
             // 注册失败 :(
