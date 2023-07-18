@@ -83,7 +83,6 @@ self.addEventListener('message', function(e) {
     if (e.data.action === 'cache') {
         caches.open(CACHE_VERSIONS.assets).then(function(cache) {
         cache.addAll(urls);
-        return self.clients.claim();
         })
     }
 })
