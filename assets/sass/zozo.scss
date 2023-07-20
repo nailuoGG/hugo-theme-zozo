@@ -610,6 +610,12 @@ hr {
   margin-inline-start: 0;
   margin-inline-end: 0;
 }
+.markdown .content-figure a img {
+  margin: 0 auto;
+  cursor: pointer;
+  cursor: zoom-in;
+  cursor: -webkit-zoom-in;
+}
 table {
   border-collapse: collapse;
   border-spacing: 0;
