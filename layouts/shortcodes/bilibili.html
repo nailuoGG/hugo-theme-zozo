@@ -1,5 +1,13 @@
 <div class='iframe-container'>
     <div align=center class="aspect-ratio">
+    {{ if .IsNamedParams }}
+
+   <iframe src='//player.bilibili.com/player.html?{{ with .Get "aid" }}aid={{ . }}&{{ end }}{{ with .Get "bvid" }}bvid={{ . }}&{{ end }}{{ with .Get "cid" }}cid={{ . }}&{{ end }}page=1&as_wide=1&high_quality=1&danmaku=0&autoplay=0'
+    scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+
+    {{ else }}
+
     <iframe
     loading="lazy"
         src="https://player.bilibili.com/player.html?bvid={{ index .Params 0 }}&page={{ if .Get 2 }}{{.Get 2}}{{ else }}1{{end}}&t={{ if .Get 3 }}{{.Get 3}}{{ else }}0{{end}}&as_wide=1&high_quality=1&danmaku=0&autoplay=0"
@@ -10,8 +18,16 @@
         framespacing="0"
         allowfullscreen="true">
     </iframe>
+
+    {{ end }}
 </div>
+{{ if .IsNamedParams }}
+{{ with .Get "caption" }}
+<p class="iframe-caption">{{.}}</p>
+{{ end }}
+{{ else }}
     {{ if .Get 1 }}
     <p class="iframe-caption">{{.Get 1}}</p>
     {{end}}
+    {{ end }}
 </div>
