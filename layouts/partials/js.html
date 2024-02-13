@@ -24,7 +24,7 @@
       var cssUrl = Array.from(document.querySelectorAll('link[href]')).filter(it=>/(\.css)$/.test(it.href)).map(it=>it.href);
       var jsUrl = Array.from(document.querySelectorAll('script[src]')).map(it=>it.src);
       // 判断浏览器是否支持 Service Worker
-      if ('serviceWorker' in navigator) {
+      if ('serviceWorker' in navigator && window.location.hostname !=='localhost') {
         // 在 load 事件触发后注册 Service Worker，确保 Service Worker 的注册不会影响首屏速度
         window.addEventListener('load', function () {
           // 注册 Service Worker
