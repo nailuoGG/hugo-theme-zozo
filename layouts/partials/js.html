@@ -27,6 +27,12 @@
       if ('serviceWorker' in navigator && window.location.hostname !=='localhost') {
         // 在 load 事件触发后注册 Service Worker，确保 Service Worker 的注册不会影响首屏速度
         window.addEventListener('load', function () {
+            // 是否禁止sw
+            const AllowServiceWorker = false;
+            if(!AllowServiceWorker){
+                return;
+            }
+
           // 注册 Service Worker
           navigator.serviceWorker.register('/sw.js').then(function (registration) {
             // 注册成功

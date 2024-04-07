@@ -61,7 +61,7 @@
         
     <link rel="shortcut icon" href="{{ "images/favicon.ico" | absURL }}" />
 
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<!--    <link rel="preload" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">-->
 
     {{ $options := dict "transpiler" "libsass" "targetPath" "css/normalize.css" }}
     {{ with resources.Get "sass/normalize.scss" | toCSS $options | minify | fingerprint }}
