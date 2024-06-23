@@ -78,11 +78,11 @@ self.addEventListener('activate', function (e) {
 //     }
 // })
 
-self.addEventListener('message', function (e) {
-    var urls = e.data.urls;
-    if (e.data.action === 'cache') {
-        caches.open(CACHE_VERSIONS.assets).then(function (cache) {
-            cache.addAll(urls);
-        })
-    }
-})
+// self.addEventListener('message', function (e) {
+//     var urls = e.data.urls;
+//     if (e.data.action === 'cache') {
+//         caches.open(CACHE_VERSIONS.assets).then(function (cache) {
+//             cache.addAll(urls);
+//         })
+//     }
+// })
