@@ -52,31 +52,31 @@ self.addEventListener('activate', function (e) {
     return self.clients.claim()
 })
 
-self.addEventListener('fetch', function (e) {
-    // console.log('SW Fetch', e.request.url)
-    // 如果数据相关的请求，需要请求更新缓存
-    let dataUrl = '/see/'
-    if (e.request.url.indexOf(dataUrl) > -1 || e.request.url.indexOf('/livereload/') > -1) {
-        // console.log('see不缓存');
+// self.addEventListener('fetch', function (e) {
+//     // console.log('SW Fetch', e.request.url)
+//     // 如果数据相关的请求，需要请求更新缓存
+//     let dataUrl = '/see/'
+//     if (e.request.url.indexOf(dataUrl) > -1 || e.request.url.indexOf('/livereload/') > -1) {
+//         // console.log('see不缓存');
 
-        e.respondWith(
-            caches.open(CACHE_VERSIONS.content).then(function (cache) {
-                return fetch(e.request).then(function (response) {
-                    cache.put(e.request.url, response.clone())
-                    return response
-                }).catch(function () {
-                    return caches.match(e.request)
-                })
-            })
-        )
-    } else {
-        e.respondWith(
-            caches.match(e.request).then(function (response) {
-                return response || fetch(e.request)
-            })
-        )
-    }
-})
+//         e.respondWith(
+//             caches.open(CACHE_VERSIONS.content).then(function (cache) {
+//                 return fetch(e.request).then(function (response) {
+//                     cache.put(e.request.url, response.clone())
+//                     return response
+//                 }).catch(function () {
+//                     return caches.match(e.request)
+//                 })
+//             })
+//         )
+//     } else {
+//         e.respondWith(
+//             caches.match(e.request).then(function (response) {
+//                 return response || fetch(e.request)
+//             })
+//         )
+//     }
+// })
 
 self.addEventListener('message', function (e) {
     var urls = e.data.urls;
