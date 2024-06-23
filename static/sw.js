@@ -39,16 +39,16 @@ self.addEventListener('install', function (e) {
 
 self.addEventListener('activate', function (e) {
     // console.log('SW Activate')
-    e.waitUntil(
-        caches.keys().then(function (keyList) {
-            return Promise.all(keyList.map(function (key) {
-                if (key !== CACHE_VERSIONS.assets && key !== CACHE_VERSION.content) {
-                    // console.log('SW Removing old cache', key)
-                    return caches.delete(key)
-                }
-            }))
-        })
-    )
+    // e.waitUntil(
+    //     caches.keys().then(function (keyList) {
+    //         return Promise.all(keyList.map(function (key) {
+    //             if (key !== CACHE_VERSIONS.assets && key !== CACHE_VERSION.content) {
+    //                 // console.log('SW Removing old cache', key)
+    //                 return caches.delete(key)
+    //             }
+    //         }))
+    //     })
+    // )
     return self.clients.claim()
 })
 
