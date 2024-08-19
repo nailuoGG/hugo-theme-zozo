@@ -37,7 +37,7 @@
     <meta name="generator" content="Hugo {{ .Site.Hugo.Version }} with theme zozo" />
 
     <!-- Analytics -->
-    {{- if (in (slice (getenv "HUGO_ENV") hugo.Environment) "production") | and .Site.GoogleAnalytics -}}
+    {{- if (in (slice (getenv "HUGO_ENV") hugo.Environment) "production") | and .Site.Config.Services.GoogleAnalytics.ID -}}
       {{ template "_internal/google_analytics.html" . }}
     {{- end -}}
 
@@ -58,7 +58,7 @@
     <link href="{{ .Permalink }}" rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" />
     <link href="{{ .Permalink }}" rel="feed" type="application/rss+xml" title="{{ $.Site.Title }}" />
     {{- end -}}
-        
+
     <link rel="shortcut icon" href="{{ "images/favicon.ico" | absURL }}" />
 
 <!--    <link rel="preload" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">-->
